@@ -1,14 +1,25 @@
 const path = require('path');
+var webpack = require('webpack');
+
 module.exports = {
-  entry: './src/index.js',
+  entry: './main.js',
   output: {
-    path: path.resolve('dist'),
-    filename: '/dist/index_bundle.js'
+    // path: path.resolve(__dirname, 'dist'),
+    path: __dirname,
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
-      { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ }
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.jsx$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      }
     ]
   }
 };
