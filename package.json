@@ -23,6 +23,9 @@
     "webpack": "^3.4.1"
   },
   "babel": {
-    "presets": ["env", "react"]
+    "presets": [
+      "env",
+      "react"
+    ]
   }
 }

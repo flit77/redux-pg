@@ -2,10 +2,10 @@ const path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './main.js',
+  entry: './src/main.js',
   output: {
-    // path: path.resolve(__dirname, 'dist'),
-    path: __dirname,
+    path: path.resolve(__dirname, 'dist'),
+    // path: __dirname,
     filename: 'bundle.js'
   },
   module: {
@@ -13,11 +13,13 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
+        include: [path.resolve(__dirname, 'src')],
         exclude: /node_modules/
       },
       {
         test: /\.jsx$/,
         loader: 'babel-loader',
+        include: [path.resolve(__dirname, 'src')],
         exclude: /node_modules/
       }
     ]
