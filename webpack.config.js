@@ -3,6 +3,11 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: './src/main.js',
+  devServer: {
+    publicPath: '/dist/',
+    compress: true,
+    port: 9001
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
