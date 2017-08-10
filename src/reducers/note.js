@@ -1,8 +1,10 @@
 const CREATE_NOTE = 'CREATE_NOTE';
 const UPDATE_NOTE = 'UPDATE_NOTE';
+
 const initialState = {
   nextNoteId: 1,
-  notes: {}
+  notes: {},
+  openNoteId: null
 };
 
 export default (state = initialState, action) => {
