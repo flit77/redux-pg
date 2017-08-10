@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import noteReducer from './reducers/note';
+import reducer from './reducers/note';
 import Notes from './components/Notes.jsx';
+import createStore from './store';
 
 const CREATE_NOTE = 'CREATE_NOTE';
 const UPDATE_NOTE = 'UPDATE_NOTE';
@@ -13,24 +14,32 @@ const initialState = {
 
 window.state = initialState;
 
-const state0 = noteReducer(undefined, {
+const store = createStore(reducer);
+
+store.subscribe(() => {
+  ReactDOM.render(
+    <pre>
+      {JSON.stringify(store.getState(), null, 2)}
+    </pre>,
+    document.getElementById('root')
+  );
+});
+
+store.dispatch({
   type: CREATE_NOTE
 });
 
-const state1 = noteReducer(state0, {
+store.dispatch({
   type: UPDATE_NOTE,
   id: 1,
   content: 'Hello, world!'
 });
 
-const renderApp = () => {
-  ReactDOM.render(
-    <Notes notes={window.state.notes} />,
-    // <pre>
-    //   {JSON.stringify(state1, null, 2)}
-    // </pre>,
-    document.getElementById('root')
-  );
-};
+// const renderApp = () => {
+//   ReactDOM.render(
+//     <Notes notes={window.state.notes} />,
+//     document.getElementById('root')
+//   );
+// };
 
-renderApp();
+// renderApp();
