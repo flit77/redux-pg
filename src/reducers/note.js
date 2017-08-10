@@ -1,5 +1,7 @@
 const CREATE_NOTE = 'CREATE_NOTE';
 const UPDATE_NOTE = 'UPDATE_NOTE';
+const OPEN_NOTE = 'OPEN_NOTE';
+const CLOSE_NOTE = 'CLOSE_NOTE';
 
 const initialState = {
   nextNoteId: 1,
@@ -18,6 +20,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         nextNoteId: id + 1,
+        openNoteId: id,
         notes: {
           ...state.notes,
           [id]: newNote
@@ -36,6 +39,18 @@ export default (state = initialState, action) => {
           ...state.notes,
           [id]: editedNote
         }
+      };
+    }
+    case OPEN_NOTE: {
+      return {
+        ...state,
+        openNoteId: action.id
+      };
+    }
+    case CLOSE_NOTE: {
+      return {
+        ...state,
+        openNoteId: null
       };
     }
     default:
