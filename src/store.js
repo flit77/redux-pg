@@ -7,9 +7,10 @@ const validateAction = action => {
   }
 };
 
-export default reducer => {
+export default (reducer, middleware) => {
   let state;
   const subscribers = [];
+  const getState = () => state;
   const store = {
     dispatch: action => {
       validateAction(action);
@@ -27,6 +28,13 @@ export default reducer => {
       };
     }
   };
+  if (middleware) {
+    const dispatch = action => store.dispatch(action);
+    store.dispatch = middleware({
+      dispatch,
+      getState
+    })(coreDispatch);
+  }
   store.dispatch({ type: '@@redux/INIT' });
   return store;
 };

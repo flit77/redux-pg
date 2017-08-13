@@ -9,7 +9,13 @@ import Provider from './provider';
 const CREATE_NOTE = 'CREATE_NOTE';
 const UPDATE_NOTE = 'UPDATE_NOTE';
 
-const store = createStore(reducer);
+const delayMiddleware = () => next => action => {
+  setTimeout(() => {
+    next(action);
+  }, 1000);
+};
+
+const store = createStore(reducer, delayMiddleware);
 
 ReactDOM.render(
   <Provider store={store}>
