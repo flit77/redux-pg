@@ -10,6 +10,13 @@ import applyMiddleware from './applyMiddleware';
 const CREATE_NOTE = 'CREATE_NOTE';
 const UPDATE_NOTE = 'UPDATE_NOTE';
 
+const thunkMiddleware = ({ dispatch, getState }) => next => action => {
+  if (typeof action === 'function') {
+    return action({ dispatch, getState });
+  }
+  return next(action);
+};
+
 const loggingMiddleware = ({ getState }) => next => action => {
   console.info('before', getState());
   console.info('action', action);
@@ -18,7 +25,10 @@ const loggingMiddleware = ({ getState }) => next => action => {
   return result;
 };
 
-const store = createStore(reducer, applyMiddleware(loggingMiddleware));
+const store = createStore(
+  reducer,
+  applyMiddleware(thunkMiddleware, loggingMiddleware)
+);
 
 ReactDOM.render(
   <Provider store={store}>
