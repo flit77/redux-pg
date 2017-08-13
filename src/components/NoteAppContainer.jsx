@@ -5,6 +5,21 @@ import createFakeApi from './../fakeApi'
 
 const api = createFakeApi();
 
+const createNote = () => {
+  return ({dispatch}) => {
+    dispatch({
+      type: CREATE_NOTE
+    });
+    api.createNote()
+      .then(({id}) => {
+        dispatch({
+          type: CREATE_NOTE,
+          id
+        })
+      });
+  }
+};
+
 const CREATE_NOTE = 'CREATE_NOTE';
 const UPDATE_NOTE = 'UPDATE_NOTE';
 const OPEN_NOTE = 'OPEN_NOTE';
@@ -95,18 +110,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onAddNote: () => {
-    dispatch({
-      type: CREATE_NOTE
-    });
-    api.createNote()
-      .then(({id}) => {
-        dispatch({
-          type: CREATE_NOTE,
-          id
-        });
-      });
-  },
+  onAddNote: () => dispatch(createNote()),
   onChangeNote: (id, content) => dispatch({
     type: UPDATE_NOTE,
     id,
