@@ -1,5 +1,6 @@
 import React from 'react';
 import connect from './../connect';
+import api from './../fakeApi'
 // import NoteApp from './NoteApp.jsx';
 
 const CREATE_NOTE = 'CREATE_NOTE';
