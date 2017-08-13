@@ -10,14 +10,15 @@ const validateAction = action => {
 export default (reducer, middleware) => {
   let state;
   const subscribers = [];
+  const coreDispatch = action => {
+    validateAction(action);
+    state = reducer(state, action);
+    subscribers.forEach(handler => handler());
+  };
   const getState = () => state;
   const store = {
-    dispatch: action => {
-      validateAction(action);
-      state = reducer(state, action);
-      subscribers.forEach(handler => handler());
-    },
-    getState: () => state,
+    dispatch: coreDispatch,
+    getState,
     subscribe: handler => {
       subscribers.push(handler);
       return () => {
@@ -35,6 +36,6 @@ export default (reducer, middleware) => {
       getState
     })(coreDispatch);
   }
-  store.dispatch({ type: '@@redux/INIT' });
+  coreDispatch({ type: '@@redux/INIT' });
   return store;
 };
