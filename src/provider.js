@@ -1,4 +1,5 @@
 import React from 'react';
+import { PropTypes } from 'react';
 
 class Provider extends React.Component {
   getChildContext() {

@@ -1,3 +1,5 @@
+import { PropTypes } from 'react';
+
 export default (
   mapStateToProps = () => ({}),
   mapDispatchToProps = () => ({})
