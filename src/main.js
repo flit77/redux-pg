@@ -10,12 +10,6 @@ import applyMiddleware from './applyMiddleware';
 const CREATE_NOTE = 'CREATE_NOTE';
 const UPDATE_NOTE = 'UPDATE_NOTE';
 
-const delayMiddleware = () => next => action => {
-  setTimeout(() => {
-    next(action);
-  }, 1000);
-};
-
 const loggingMiddleware = ({ getState }) => next => action => {
   console.info('before', getState());
   console.info('action', action);
@@ -24,10 +18,7 @@ const loggingMiddleware = ({ getState }) => next => action => {
   return result;
 };
 
-const store = createStore(
-  reducer,
-  applyMiddleware(delayMiddleware, loggingMiddleware)
-);
+const store = createStore(reducer, applyMiddleware(loggingMiddleware));
 
 ReactDOM.render(
   <Provider store={store}>
